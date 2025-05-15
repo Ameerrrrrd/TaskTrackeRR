@@ -13,7 +13,18 @@ public partial class MainPage : ContentPage
         BindingContext = this;
     
     }
+    protected override async void OnAppearing()
+    {
+        base.OnAppearing();
 
+        if (Tasks.Count == 0)
+        {
+            int currentUserId = Preferences.Get("current_user_id", -1);
+            var tasksFromDb = await DataBaseInit_tasks.ShowUserTasks(currentUserId);
+            foreach (var task in tasksFromDb)
+                Tasks.Add(task);
+        }
+    }
 
     private async void OnAddTaskClicked(object sender, EventArgs e)
     {

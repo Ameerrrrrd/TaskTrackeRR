@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -62,7 +63,7 @@ namespace TaskTrackeRR
                                                     VALUES (@id, @name);", conn, (MySqlTransaction)transaction);
                 inserttask.Parameters.AddWithValue("@id", currentUserId);
                 inserttask.Parameters.AddWithValue("@name", newTask);
-                
+
                 await inserttask.ExecuteNonQueryAsync();
                 await transaction.CommitAsync();
             }
@@ -71,8 +72,29 @@ namespace TaskTrackeRR
                 Console.WriteLine($"ERRORRR!! {ex.Message}");
                 await transaction.RollbackAsync();
             }
+        }
 
-            
+        public static async Task<List<string>> ShowUserTasks (int userId)
+        {
+            var tasks = new List<string>();
+
+            using var conn = new MySqlConnection(builder.ConnectionString);
+            await conn.OpenAsync();
+
+            using var transaction = await conn.BeginTransactionAsync();
+            var selectCommand = new MySqlCommand(
+                "SELECT name FROM user_tasks WHERE user_id = @id", conn, (MySqlTransaction)transaction);
+            selectCommand.Parameters.AddWithValue("@id", userId);
+
+            using var reader = await selectCommand.ExecuteReaderAsync();
+
+            while (await reader.ReadAsync())
+            {
+                string taskName = reader.IsDBNull("name") ? string.Empty : reader.GetString("name");
+                tasks.Add(taskName);
+            }
+
+            return tasks;
 
         }
     }
