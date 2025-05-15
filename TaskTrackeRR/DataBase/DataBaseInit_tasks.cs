@@ -13,7 +13,7 @@ namespace TaskTrackeRR
     {
         private static readonly MySqlConnectionStringBuilder builder = new MySqlConnectionStringBuilder
         {
-            Server = "192.168.0.19",
+            Server = "192.168.220.23", 
             UserID = "root",
             Password = "root",
             Database = "troll",
@@ -23,13 +23,12 @@ namespace TaskTrackeRR
         {
             using var conn = new MySqlConnection(builder.ConnectionString);
             await conn.OpenAsync();
-            // Вставка задачи
-            using var transaction = await conn.BeginTransactionAsync();
+
             try
             {
                 var insertCommand = new MySqlCommand(@"
                 INSERT INTO user_tasks (user_id, name, description, dueDate, difficulty, storyPoints)
-                VALUES (@id, @name, @desc, @date, @diff, @sp);", conn, (MySqlTransaction)transaction);
+                VALUES (@id, @name, @desc, @date, @diff, @sp);", conn);
 
                 insertCommand.Parameters.AddWithValue("@id", currentUserId);
                 insertCommand.Parameters.AddWithValue("@name", taskName);
@@ -39,12 +38,10 @@ namespace TaskTrackeRR
                 insertCommand.Parameters.AddWithValue("@sp", taskStoryPoints.ToString());
 
                 await insertCommand.ExecuteNonQueryAsync();
-                await transaction.CommitAsync();
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"ОШИБКА!!! {ex.Message}");
-                await transaction.RollbackAsync();
             }
 
         }

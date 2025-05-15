@@ -13,7 +13,7 @@ namespace TaskTrackeRR
     {
         private static readonly MySqlConnectionStringBuilder builder = new MySqlConnectionStringBuilder
         {
-            Server = "192.168.0.19",
+            Server = "192.168.220.23",
             UserID = "root",
             Password = "root",
             Database = "troll",
@@ -32,7 +32,6 @@ namespace TaskTrackeRR
             using var transaction = await conn.BeginTransactionAsync();
             try
             {
-                // 1. Вставка в user_login
                 var userCmd = new MySqlCommand(@"
                                                 INSERT INTO user_login (login, email)
                                                 VALUES (@login, @email);
@@ -44,13 +43,11 @@ namespace TaskTrackeRR
                 var userId = Convert.ToInt32(await userCmd.ExecuteScalarAsync());
                 Console.WriteLine($"[STEP] ExecuteScalarAsync: {sw.ElapsedMilliseconds}ms");
 
-                // 2. Генерация соли и хеш
                 sw.Restart();
                 string salt = BCrypt.Net.BCrypt.GenerateSalt(8); 
                 string hashedPassword = await Task.Run(() => BCrypt.Net.BCrypt.HashPassword(password, salt));
                 Console.WriteLine($"[STEP] Hashing: {sw.ElapsedMilliseconds}ms");
 
-                // 3. Вставка в user_pwd
                 var passCmd = new MySqlCommand(@"
                                                 INSERT INTO user_pwd (user_id, password_hash, salt)
                                                 VALUES (@user_id, @hashedPassword, @salt);", conn, (MySqlTransaction)transaction);

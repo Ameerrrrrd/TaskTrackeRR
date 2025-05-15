@@ -33,6 +33,7 @@ public partial class LoginPage : ContentPage
                 var mainPage = new MainPage();
                 foreach (var task in tasks)
                     mainPage.Tasks.Add(task);
+
                 await DisplayAlert("Success", "Login  successfully", "OK");
                 await Navigation.PushAsync(mainPage);
             }

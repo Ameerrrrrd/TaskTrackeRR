@@ -44,9 +44,10 @@
 
 
             <Button Text="Sign Up"
-                    Clicked="OnRegisterButClicked"
+                    
                     BackgroundColor="{AppThemeBinding Light='#007AFF', Dark='#0A84FF'}"
                     TextColor="Black"
+                    Clicked="OnRegisterButtonClicked"
                     CornerRadius="12" />
 
             <Label Text="Already have an acoount?"

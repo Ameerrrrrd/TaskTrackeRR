@@ -98,11 +98,20 @@ public partial class AddingTaskPage : ContentPage
 
         try
         {
-            int currentUserId = Preferences.Get("current_user_id", -1);
+            int? currentUserId = Preferences.Get("current_user_id", -1);
             if (currentUserId != -1)
             {
-                await DataBaseInit_tasks.InsertTaskInDB(currentUserId, taskName, taskDescription, taskDueDate, taskDifficulty, taskStoryPoints.ToString());
+                var tasks = await DataBaseInit_tasks.ShowUserTasks(currentUserId.Value);
+
+                var mainPage = new MainPage();
+                foreach (var task in tasks)
+                    mainPage.Tasks.Add(task);
+
+                await DataBaseInit_tasks.InsertTaskInDB(currentUserId.Value, taskName, taskDescription, taskDueDate, taskDifficulty, taskStoryPoints.ToString());
                 await DisplayAlert("Task Added", $"Name: {taskName}\nDescription: {taskDescription}\nDue: {taskDueDate}\nDifficulty: {taskDifficulty}\nStory Points: {taskStoryPoints}", "OK");
+
+
+
                 await Navigation.PushAsync(new MainPage());
             }
         }
