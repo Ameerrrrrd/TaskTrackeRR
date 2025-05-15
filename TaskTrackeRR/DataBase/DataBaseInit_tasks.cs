@@ -47,5 +47,33 @@ namespace TaskTrackeRR
             }
 
         }
+
+        public static async Task InsertTaskByEntry (int currentUserId, string newTask)
+        {
+            using var conn = new MySqlConnection(builder.ConnectionString);
+            await conn.OpenAsync();
+
+            using var transaction = await conn.BeginTransactionAsync();
+
+            try
+            {
+                var inserttask = new MySqlCommand(@"
+                                                    INSERT INTO user_tasks (user_id, name) 
+                                                    VALUES (@id, @name);", conn, (MySqlTransaction)transaction);
+                inserttask.Parameters.AddWithValue("@id", currentUserId);
+                inserttask.Parameters.AddWithValue("@name", newTask);
+                
+                await inserttask.ExecuteNonQueryAsync();
+                await transaction.CommitAsync();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"ERRORRR!! {ex.Message}");
+                await transaction.RollbackAsync();
+            }
+
+            
+
+        }
     }
 }

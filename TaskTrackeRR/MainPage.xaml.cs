@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 
 namespace TaskTrackeRR;
 
@@ -19,14 +20,24 @@ public partial class MainPage : ContentPage
         var newTask = NewTaskEntry.Text?.Trim();
 
         if (string.IsNullOrEmpty(newTask))
-        {
-            // Navigate to a new page if task is empty
             await Navigation.PushAsync(new AddingTaskPage());
-        }
         else
         {
-            Tasks.Add(newTask);
-            NewTaskEntry.Text = string.Empty;
+            try
+            {
+                int currentUserId = Preferences.Get("current_user_id", -1);
+                if (currentUserId != -1)
+                {
+                    await DataBaseInit_tasks.InsertTaskByEntry(currentUserId, newTask);
+
+                    Tasks.Add(newTask);
+                    NewTaskEntry.Text = string.Empty;
+                }
+            }
+            catch (Exception ex)
+            {
+                await DisplayAlert("Error", $"Error: {ex.Message}", "OK");
+            }
         }
     }
 }
