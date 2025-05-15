@@ -5,7 +5,8 @@ namespace TaskTrackeRR;
 
 public partial class MainPage : ContentPage
 {
-    public ObservableCollection<string> Tasks { get; set; } = new();
+    public ObservableCollection<TaskModel> Tasks { get; set; } = new();
+
 
     public MainPage()
     {
@@ -41,7 +42,11 @@ public partial class MainPage : ContentPage
                 {
                     await DataBaseInit_tasks.InsertTaskByEntry(currentUserId, newTask);
 
-                    Tasks.Add(newTask);
+                    Tasks.Add(new TaskModel
+                    {
+                        Name = newTask,
+                        Description = ""
+                    });
                     NewTaskEntry.Text = string.Empty;
                 }
             }

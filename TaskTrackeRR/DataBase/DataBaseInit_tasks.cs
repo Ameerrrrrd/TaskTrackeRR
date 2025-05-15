@@ -74,16 +74,16 @@ namespace TaskTrackeRR
             }
         }
 
-        public static async Task<List<string>> ShowUserTasks (int userId)
+        public static async Task<List<TaskModel>> ShowUserTasks (int userId)
         {
-            var tasks = new List<string>();
+            var tasks = new List<TaskModel>();
 
             using var conn = new MySqlConnection(builder.ConnectionString);
             await conn.OpenAsync();
 
             using var transaction = await conn.BeginTransactionAsync();
             var selectCommand = new MySqlCommand(
-                "SELECT name FROM user_tasks WHERE user_id = @id", conn, (MySqlTransaction)transaction);
+                "SELECT name, description FROM user_tasks WHERE user_id = @id", conn, (MySqlTransaction)transaction);
             selectCommand.Parameters.AddWithValue("@id", userId);
 
             using var reader = await selectCommand.ExecuteReaderAsync();
@@ -91,11 +91,29 @@ namespace TaskTrackeRR
             while (await reader.ReadAsync())
             {
                 string taskName = reader.IsDBNull("name") ? string.Empty : reader.GetString("name");
-                tasks.Add(taskName);
+                string taskDescription = reader.IsDBNull("description") ? string.Empty : reader.GetString("description");
+
+                tasks.Add(new TaskModel
+                {
+                    Name = taskName,
+                    Description = TextTruncator.Truncate(taskDescription)
+                });
             }
 
             return tasks;
-
         }
+    }
+    public static class TextTruncator
+    {
+        public static string Truncate(string input, int maxLength = 25)
+        {
+            if (string.IsNullOrEmpty(input)) return string.Empty;
+            return input.Length <= maxLength ? input : input.Substring(0, maxLength) + "...";
+        }
+    }
+    public class TaskModel
+    {
+        public string Name { get; set; } = string.Empty;
+        public string Description { get; set; } = string.Empty;
     }
 }

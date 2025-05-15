@@ -13,17 +13,22 @@
                        HorizontalOptions="Center"
                        TextColor="{AppThemeBinding Light='Black', Dark='White'}" />
 
-                <CollectionView x:Name="TasksListView"
-                                ItemsSource="{Binding Tasks}">
+                <CollectionView ItemsSource="{Binding Tasks}">
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
                             <Frame Padding="15"
                                    Margin="5"
                                    CornerRadius="12"
                                    BackgroundColor="{AppThemeBinding Light='#e0e0e0', Dark='#2c2c2c'}">
-                                <Label Text="{Binding}"
-                                       FontSize="18"
-                                       TextColor="{AppThemeBinding Light='Black', Dark='White'}" />
+                                <StackLayout>
+                                    <Label Text="{Binding Name}"
+                           FontSize="18"
+                           TextColor="{AppThemeBinding Light='Black', Dark='White'}" />
+                                    <Label Text="{Binding Description}"
+                           FontSize="14"
+                           TextColor="{AppThemeBinding Light='#888888', Dark='#aaaaaa'}"
+                           LineBreakMode="TailTruncation" />
+                                </StackLayout>
                             </Frame>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
