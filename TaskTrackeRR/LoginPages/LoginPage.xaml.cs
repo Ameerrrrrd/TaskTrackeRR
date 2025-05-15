@@ -27,8 +27,14 @@ public partial class LoginPage : ContentPage
             int? userId = await DataBaseInit_Users.CheckUserLoginAsync(input, password);
             if (userId != null)
             {
-                await DisplayAlert("Success", "Login successfully", "OK");
-                await Navigation.PushAsync(new MainPage());
+                Preferences.Set("current_user_id", userId.Value);
+                var tasks = await DataBaseInit_tasks.ShowUserTasks(userId.Value);
+
+                var mainPage = new MainPage();
+                foreach (var task in tasks)
+                    mainPage.Tasks.Add(task);
+                await DisplayAlert("Success", "Login  successfully", "OK");
+                await Navigation.PushAsync(mainPage);
             }
 
         }

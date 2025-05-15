@@ -85,12 +85,22 @@
                 </Picker.ItemsSource>
             </Picker>
 
+            <ActivityIndicator x:Name="LoadingIndicator"
+                   IsVisible="False"
+                   IsRunning="False"
+                   Color="Gray"
+                   HeightRequest="40"
+                   WidthRequest="40"
+                   HorizontalOptions="Center" />
+            
             <Button Text="Add task"
                     FontSize="22"
                     Clicked="OnAddTaskButtonClicked"
                     BackgroundColor="{AppThemeBinding Light='#007AFF', Dark='#0A84FF'}"
                     TextColor="White"
                     Padding="15" />
+
+            
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

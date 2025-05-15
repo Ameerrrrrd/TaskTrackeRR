@@ -13,7 +13,9 @@
                        HorizontalOptions="Center"
                        TextColor="{AppThemeBinding Light='Black', Dark='White'}" />
 
-                <CollectionView ItemsSource="{Binding Tasks}">
+                <CollectionView ItemsSource="{Binding Tasks}"
+                                SelectionMode="Single" 
+                                SelectionChanged="OnTaskSelected">
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
                             <Frame Padding="15"

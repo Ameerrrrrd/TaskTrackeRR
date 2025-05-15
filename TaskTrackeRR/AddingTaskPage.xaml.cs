@@ -92,6 +92,10 @@ public partial class AddingTaskPage : ContentPage
             await DisplayAlert("Error", "Name can't exceed 30 characters.", "OK");
             return;
         }
+
+        LoadingIndicator.IsVisible = true;
+        LoadingIndicator.IsRunning = true;
+
         try
         {
             int currentUserId = Preferences.Get("current_user_id", -1);
@@ -105,6 +109,12 @@ public partial class AddingTaskPage : ContentPage
         catch (Exception ex)
         {
             await DisplayAlert("Error", ex.Message, "OK"); return;
+        }
+
+        finally
+        {
+            LoadingIndicator.IsVisible = false;
+            LoadingIndicator.IsRunning = false;
         }
     }
 }

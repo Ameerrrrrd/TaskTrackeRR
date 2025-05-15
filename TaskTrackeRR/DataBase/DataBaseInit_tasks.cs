@@ -54,23 +54,19 @@ namespace TaskTrackeRR
             using var conn = new MySqlConnection(builder.ConnectionString);
             await conn.OpenAsync();
 
-            using var transaction = await conn.BeginTransactionAsync();
-
             try
             {
                 var inserttask = new MySqlCommand(@"
                                                     INSERT INTO user_tasks (user_id, name) 
-                                                    VALUES (@id, @name);", conn, (MySqlTransaction)transaction);
+                                                    VALUES (@id, @name);", conn);
                 inserttask.Parameters.AddWithValue("@id", currentUserId);
                 inserttask.Parameters.AddWithValue("@name", newTask);
 
                 await inserttask.ExecuteNonQueryAsync();
-                await transaction.CommitAsync();
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"ERRORRR!! {ex.Message}");
-                await transaction.RollbackAsync();
             }
         }
 
@@ -81,23 +77,26 @@ namespace TaskTrackeRR
             using var conn = new MySqlConnection(builder.ConnectionString);
             await conn.OpenAsync();
 
-            using var transaction = await conn.BeginTransactionAsync();
             var selectCommand = new MySqlCommand(
-                "SELECT name, description FROM user_tasks WHERE user_id = @id", conn, (MySqlTransaction)transaction);
+                "SELECT task_id, name, description FROM user_tasks WHERE user_id = @id", conn);
             selectCommand.Parameters.AddWithValue("@id", userId);
 
             using var reader = await selectCommand.ExecuteReaderAsync();
+            int idOrdinal = reader.GetOrdinal("task_id");
+            int nameOrdinal = reader.GetOrdinal("name");
+            int descOrdinal = reader.GetOrdinal("description");
 
             while (await reader.ReadAsync())
             {
-                string taskName = reader.IsDBNull("name") ? string.Empty : reader.GetString("name");
-                string taskDescription = reader.IsDBNull("description") ? string.Empty : reader.GetString("description");
-
-                tasks.Add(new TaskModel
+                var task = new TaskModel
                 {
-                    Name = taskName,
-                    Description = TextTruncator.Truncate(taskDescription)
-                });
+                    TaskId = reader.IsDBNull(idOrdinal) ? 0 : reader.GetInt32(idOrdinal),
+                    Name = reader.IsDBNull(nameOrdinal) ? string.Empty : reader.GetString(nameOrdinal),
+                    Description = TextTruncator.Truncate(
+                        reader.IsDBNull(descOrdinal) ? string.Empty : reader.GetString(descOrdinal), 25)
+                };
+
+                tasks.Add(task);
             }
 
             return tasks;
@@ -105,7 +104,7 @@ namespace TaskTrackeRR
     }
     public static class TextTruncator
     {
-        public static string Truncate(string input, int maxLength = 25)
+        public static string Truncate(string input, int maxLength = 30)
         {
             if (string.IsNullOrEmpty(input)) return string.Empty;
             return input.Length <= maxLength ? input : input.Substring(0, maxLength) + "...";
@@ -113,7 +112,14 @@ namespace TaskTrackeRR
     }
     public class TaskModel
     {
+        public int TaskId { get; set; }
         public string Name { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
+    }
+
+    public static class SelectedTaskContext
+    {
+        public static int TaskId { get; set; }
+        public static string TaskName { get; set; } = string.Empty;
     }
 }

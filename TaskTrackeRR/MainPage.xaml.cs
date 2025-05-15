@@ -14,18 +14,44 @@ public partial class MainPage : ContentPage
         BindingContext = this;
     
     }
-    protected override async void OnAppearing()
+    public MainPage(ObservableCollection<TaskModel> tasks)
+    {
+        InitializeComponent();
+        Tasks = tasks;
+        BindingContext = this;
+    }
+    protected override void OnAppearing()
     {
         base.OnAppearing();
 
-        if (Tasks.Count == 0)
+        // НЕ ждем — просто запускаем асинхронную загрузку
+        _ = LoadTasksAsync();
+    }
+
+    private async Task LoadTasksAsync()
+    {
+        if (Tasks.Count > 0) return;
+
+        IsBusy = true;
+
+        try
         {
             int currentUserId = Preferences.Get("current_user_id", -1);
             var tasksFromDb = await DataBaseInit_tasks.ShowUserTasks(currentUserId);
-            foreach (var task in tasksFromDb)
-                Tasks.Add(task);
+
+            // Прямое добавление, без UI блокировки
+            MainThread.BeginInvokeOnMainThread(() =>
+            {
+                foreach (var task in tasksFromDb)
+                    Tasks.Add(task);
+            });
+        }
+        finally
+        {
+            IsBusy = false;
         }
     }
+
 
     private async void OnAddTaskClicked(object sender, EventArgs e)
     {
@@ -54,6 +80,18 @@ public partial class MainPage : ContentPage
             {
                 await DisplayAlert("Error", $"Error: {ex.Message}", "OK");
             }
+
+        }
+    }
+
+    private async void OnTaskSelected(object sender, SelectionChangedEventArgs e)
+    {
+        if (e.CurrentSelection.FirstOrDefault() is TaskModel selectedTask)
+        {
+            SelectedTaskContext.TaskId = selectedTask.TaskId;
+            SelectedTaskContext.TaskName = selectedTask.Name;
+
+            await Navigation.PushAsync(new TaskPreview());
         }
     }
 }
