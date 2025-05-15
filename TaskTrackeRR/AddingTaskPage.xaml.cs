@@ -5,8 +5,8 @@ namespace TaskTrackeRR;
 
 public partial class AddingTaskPage : ContentPage
 {
-    private string taskName = string.Empty;
-    private string taskDescription = string.Empty;
+    private static string taskName = string.Empty;
+    private static string taskDescription = string.Empty;
     private string taskDueDate = string.Empty;
     private string taskDifficulty = string.Empty;
     private int taskStoryPoints = 0;
@@ -92,8 +92,19 @@ public partial class AddingTaskPage : ContentPage
             await DisplayAlert("Error", "Name can't exceed 30 characters.", "OK");
             return;
         }
-
-        await DisplayAlert("Task Added", $"Name: {taskName}\nDescription: {taskDescription}\nDue: {taskDueDate}\nDifficulty: {taskDifficulty}\nStory Points: {taskStoryPoints}", "OK");
-        await Navigation.PushAsync(new MainPage());
+        try
+        {
+            int currentUserId = Preferences.Get("current_user_id", -1);
+            if (currentUserId != -1)
+            {
+                await DataBaseInit_tasks.InsertTaskInDB(currentUserId, taskName, taskDescription, taskDueDate, taskDifficulty, taskStoryPoints.ToString());
+                await DisplayAlert("Task Added", $"Name: {taskName}\nDescription: {taskDescription}\nDue: {taskDueDate}\nDifficulty: {taskDifficulty}\nStory Points: {taskStoryPoints}", "OK");
+                await Navigation.PushAsync(new MainPage());
+            }
+        }
+        catch (Exception ex)
+        {
+            await DisplayAlert("Error", ex.Message, "OK"); return;
+        }
     }
 }

@@ -61,6 +61,8 @@ namespace TaskTrackeRR
                 await passCmd.ExecuteNonQueryAsync();
                 Console.WriteLine($"[STEP] Insert password: {sw.ElapsedMilliseconds}ms");
                 await transaction.CommitAsync();
+
+                Preferences.Set("current_user_id", userId);
                 return true;
             }
             catch
