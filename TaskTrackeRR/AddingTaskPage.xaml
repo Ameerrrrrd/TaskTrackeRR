@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TaskTrackeRR.AddingTaskPage"
+             BackgroundColor="{AppThemeBinding Light='White', Dark='Black'}">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="25" Spacing="25">
+
+            <Label Text="Adding new Task:"
+                   FontSize="28"
+                   TextColor="{AppThemeBinding Light='Black', Dark='White'}"
+                   HorizontalOptions="Center" />
+
+            <Label Text="Name*" FontSize="20" FontAttributes="Bold" />
+            <Entry x:Name="NameEntry" 
+                   Placeholder="Enter task name (max 30 chars)"
+                   FontSize="18" 
+                   TextChanged="OnNameTextChanged"/>
+            <Label x:Name="NameErrorLabel"
+                   Text="Maximum 30 characters allowed"
+                   TextColor="Red"
+                   FontSize="14"
+                   IsVisible="False"/>
+
+            <Label Text="Description" FontSize="20" />
+            <ScrollView HeightRequest="120">
+                <Editor x:Name="DescriptionEditor"
+                        Placeholder="Optional"
+                        AutoSize="TextChanges"
+                        FontSize="18"
+                        Keyboard="Default" />
+            </ScrollView>
+
+            <Label Text="Term" FontSize="20" />
+            <HorizontalStackLayout Spacing="10">
+                <DatePicker x:Name="DatePickerField"
+                            DateSelected="OnDateSelected"
+                            FontSize="18" />
+                <Button x:Name="EverydayDateButton"
+                        Text="Everyday"
+                        Clicked="OnEverydayClicked"
+                        BackgroundColor="LightGray"
+                        FontSize="18" />
+                <Button x:Name="NoneDateButton"
+                        Text="None"
+                        Clicked="OnNoneDateClicked"
+                        BackgroundColor="LightGray"
+                        FontSize="18" />
+            </HorizontalStackLayout>
+
+            <Label Text="Difficulty" FontSize="20" />
+            <Picker Title="Select difficulty"
+                    x:Name="DifficultyPicker"
+                    SelectedIndexChanged="OnDifficultySelected"
+                    FontSize="18">
+                <Picker.Items>
+                    <x:String></x:String>
+                    <x:String>Very Hard</x:String>
+                    <x:String>Hard</x:String>
+                    <x:String>Middle</x:String>
+                    <x:String>Easy</x:String>
+                    <x:String>Very Easy</x:String>
+                </Picker.Items>
+            </Picker>
+
+            <Label Text="Story Points" FontSize="28"/>
+            <Picker Title="Select story points"
+                    SelectedIndexChanged="OnStoryPointsSelected"
+                    FontSize="18">
+                <Picker.ItemsSource>
+                    <x:Array Type="{x:Type x:Int32}">
+                        <x:Int32>0</x:Int32>
+                        <x:Int32>1</x:Int32>
+                        <x:Int32>2</x:Int32>
+                        <x:Int32>3</x:Int32>
+                        <x:Int32>4</x:Int32>
+                        <x:Int32>5</x:Int32>
+                        <x:Int32>6</x:Int32>
+                        <x:Int32>7</x:Int32>
+                        <x:Int32>8</x:Int32>
+                        <x:Int32>9</x:Int32>
+                        <x:Int32>10</x:Int32>
+                    </x:Array>
+                </Picker.ItemsSource>
+            </Picker>
+
+            <Button Text="Add task"
+                    FontSize="22"
+                    Clicked="OnAddTaskButtonClicked"
+                    BackgroundColor="{AppThemeBinding Light='#007AFF', Dark='#0A84FF'}"
+                    TextColor="White"
+                    Padding="15" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35931.197
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskTrackeRR", "TaskTrackeRR\TaskTrackeRR.csproj", "{34BCEE7A-4F81-4C79-81A2-DDB34B43485A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{34BCEE7A-4F81-4C79-81A2-DDB34B43485A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{34BCEE7A-4F81-4C79-81A2-DDB34B43485A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{34BCEE7A-4F81-4C79-81A2-DDB34B43485A}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{34BCEE7A-4F81-4C79-81A2-DDB34B43485A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{34BCEE7A-4F81-4C79-81A2-DDB34B43485A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A40661F5-DEE7-4E60-B962-06E36D387309}
+	EndGlobalSection
+EndGlobal

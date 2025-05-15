@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TaskTrackeRR.RegisterPage"
+             Title="RegisterPage"
+             NavigationPage.HasNavigationBar="False"
+             BackgroundColor="{AppThemeBinding Light='White', Dark='Black'}">
+    <ScrollView>
+        <VerticalStackLayout Padding="30"
+                             VerticalOptions="CenterAndExpand"
+                             Spacing="20">
+
+            <ActivityIndicator x:Name="LoadingIndicator"
+                       IsVisible="False"
+                       IsRunning="False"
+                       Color="{AppThemeBinding Light='#007AFF', Dark='#0A84FF'}"
+                       WidthRequest="40"
+                       HeightRequest="40"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center"/>
+            
+            <Label Text="Sign up"
+                   FontSize="28"
+                   HorizontalOptions="Center"
+                   TextColor="{AppThemeBinding Light='Black', Dark='White'}" />
+
+            <Entry x:Name="emailEntry"
+                   Placeholder="Email"
+                   Keyboard="Email"
+                   TextColor="White"
+                   PlaceholderColor="Gray" />
+
+            <Entry x:Name="loginEntry"
+                   Placeholder="Login"
+                   IsPassword="False"
+                   TextColor="White"
+                   PlaceholderColor="Gray" />
+            
+            <Entry x:Name="passwordEntry"
+                   Placeholder="Password"
+                   IsPassword="True"
+                   TextColor="White"
+                   PlaceholderColor="Gray" />
+
+
+            <Button Text="Sign Up"
+                    Clicked="OnRegisterButClicked"
+                    BackgroundColor="{AppThemeBinding Light='#007AFF', Dark='#0A84FF'}"
+                    TextColor="Black"
+                    CornerRadius="12" />
+
+            <Label Text="Already have an acoount?"
+                   HorizontalOptions="Center"
+                   TextColor="{AppThemeBinding Light='Black', Dark='White'}"/>
+
+            <Label Text="Log in"
+                   TextColor="{AppThemeBinding Light='#007AFF', Dark='#0A84FF'}"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnLoginTapped" />
+                </Label.GestureRecognizers>
+            </Label>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
