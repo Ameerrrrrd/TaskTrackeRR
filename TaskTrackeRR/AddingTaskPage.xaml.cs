@@ -11,6 +11,9 @@ public partial class AddingTaskPage : ContentPage
     private string taskDifficulty = string.Empty;
     private int taskStoryPoints = 0;
 
+    public bool datePickerFlag;
+
+
     private Button noneDateBtn;
     private Button everydayBtn;
     private DatePicker datePickerField;
@@ -23,40 +26,40 @@ public partial class AddingTaskPage : ContentPage
 
     private void OnNameTextChanged(object sender, TextChangedEventArgs e)
     {
-        if (NameEntry.Text.Length > 30)
-        {
-            NameErrorLabel.IsVisible = true;
-        }
-        else
-        {
-            NameErrorLabel.IsVisible = false;
-        }
+        if (NameEntry.Text.Length > 30) NameErrorLabel.IsVisible = true;
+        else NameErrorLabel.IsVisible = false;
     }
 
     private void OnNoneDateClicked(object sender, EventArgs e)
     {
         taskDueDate = string.Empty;
         HighlightDateButton((Button)sender);
+
+        datePickerFlag = false;
     }
 
     private void OnEverydayClicked(object sender, EventArgs e)
     {
         taskDueDate = "Everyday";
         HighlightDateButton((Button)sender);
+        datePickerFlag = false;
     }
 
     private void OnDateSelected(object sender, DateChangedEventArgs e)
     {
         taskDueDate = e.NewDate.ToShortDateString();
         HighlightDateButton(null);
+        datePickerFlag = true;
     }
 
     private void HighlightDateButton(Button selected)
     {
         NoneDateButton.BackgroundColor = Colors.LightGray;
-        EverydayDateButton.BackgroundColor = Colors.LightGray;
         NoneDateButton.TextColor = Colors.Black;
+
+        EverydayDateButton.BackgroundColor = Colors.LightGray;
         EverydayDateButton.TextColor = Colors.Black;
+        
         if (selected != null)
         {
             selected.BackgroundColor = Color.FromArgb("#007AFF");
@@ -81,6 +84,14 @@ public partial class AddingTaskPage : ContentPage
         taskName = NameEntry.Text?.Trim();
         taskDescription = DescriptionEditor.Text?.Trim();
 
+        DateTime today = DateTime.Today;
+        DateTime selectedDate = DatePickerField.Date;
+
+        if(datePickerFlag && selectedDate < today)
+        {
+            await DisplayAlert("Validation Error", "DueDate must be > current date", "OK");
+            return;
+        }
         if (string.IsNullOrEmpty(taskName))
         {
             await DisplayAlert("Validation Error", "Task Name is required.", "OK");

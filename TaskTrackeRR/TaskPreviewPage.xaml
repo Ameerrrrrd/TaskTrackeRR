@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TaskTrackeRR.TaskPreviewPage"
+             Title="TaskPreviewPage">
+
+    <ScrollView>
+        <StackLayout Padding="20" Spacing="10">
+
+            <Label x:Name="header" 
+                   HorizontalOptions="Center"
+                   Text="Task:" 
+                   FontSize="Large" 
+                   FontAttributes="Bold" 
+                   TextColor="{AppThemeBinding Light='Black', Dark='White'}"/>
+            
+            <!-- Edit Button -->
+            <ImageButton x:Name="editButton"
+                         Source="edit_task.png"
+                         HeightRequest="60"
+                         WidthRequest="60"
+                         HorizontalOptions="End"
+                         Clicked="OnEditClicked"
+                         CornerRadius="100"
+                         BackgroundColor="LightGray"/>
+
+            <!-- Task Name -->
+            <Label Text="Task name:" FontAttributes="Bold" FontSize="16"/>
+            <Frame Padding="15" Margin="5" CornerRadius="12"
+                   BackgroundColor="{AppThemeBinding Light='#e0e0e0', Dark='#2c2c2c'}">
+                <Entry x:Name="taskNameEntry"
+                       FontSize="18"
+                       TextColor="{AppThemeBinding Light='Black', Dark='White'}"
+                       IsReadOnly="True" />
+            </Frame>
+            
+            <!-- Name error -->
+            <Label x:Name="NameErrorLabel"
+                   Text="Maximum 30 characters allowed"
+                   TextColor="Red"
+                   FontSize="14"
+                   IsVisible="False"/>
+
+            <!-- Description -->
+            <Label Text="Description:" FontAttributes="Bold" FontSize="16"/>
+            <Frame Padding="15" Margin="5" CornerRadius="12"
+                   BackgroundColor="{AppThemeBinding Light='#e0e0e0', Dark='#2c2c2c'}">
+                <Editor x:Name="taskDescEditor"
+                        FontSize="14"
+                        TextColor="{AppThemeBinding Light='#888888', Dark='#aaaaaa'}"
+                        AutoSize="TextChanges"
+                        IsReadOnly="True" />
+            </Frame>
+
+            <!-- Due Date -->
+            <Label Text="Due Date:" FontAttributes="Bold" FontSize="16"/>
+            <HorizontalStackLayout Spacing="10">
+                <DatePicker x:Name="DatePickerField"
+                            FontSize="18"
+                            IsEnabled="False" />
+                <Button x:Name="EverydayDateButton"
+                        Text="Everyday"
+                        Clicked="OnEverydayClicked"
+                        BackgroundColor="LightGray"
+                        TextColor="{AppThemeBinding Light='White', Dark='Black'}"
+                        FontSize="18"
+                        IsEnabled="False" />
+                <Button x:Name="NoneDateButton"
+                        Text="None"
+                        Clicked="OnNoneDateClicked"
+                        BackgroundColor="LightGray"
+                        TextColor="{AppThemeBinding Light='White', Dark='Black'}"
+                        FontSize="18"
+                        IsEnabled="False" />
+            </HorizontalStackLayout>
+
+            <!-- Difficulty -->
+            <Label Text="Difficulty:" FontAttributes="Bold" FontSize="16"/>
+            <Frame Padding="15" Margin="5" CornerRadius="12"
+                   BackgroundColor="{AppThemeBinding Light='#e0e0e0', Dark='#2c2c2c'}">
+                <Picker Title="Select difficulty"
+                        x:Name="DifficultyPicker"
+                        FontSize="18"
+                        IsEnabled="False">
+                    <Picker.Items>
+                        <x:String></x:String>
+                        <x:String>Very Hard</x:String>
+                        <x:String>Hard</x:String>
+                        <x:String>Middle</x:String>
+                        <x:String>Easy</x:String>
+                        <x:String>Very Easy</x:String>
+                    </Picker.Items>
+                </Picker>
+            </Frame>
+
+            <!-- Story Points -->
+            <Label Text="Story Points:" FontAttributes="Bold" FontSize="16"/>
+            <Frame Padding="15" Margin="5" CornerRadius="12"
+                   BackgroundColor="{AppThemeBinding Light='#e0e0e0', Dark='#2c2c2c'}">
+                <Picker Title="Select story points"
+                        x:Name="StoryPointsPicker"
+                        FontSize="18"
+                        IsEnabled="False">
+                    <Picker.ItemsSource>
+                        <x:Array Type="{x:Type x:Int32}">
+                            <x:Int32>0</x:Int32>
+                            <x:Int32>1</x:Int32>
+                            <x:Int32>2</x:Int32>
+                            <x:Int32>3</x:Int32>
+                            <x:Int32>4</x:Int32>
+                            <x:Int32>5</x:Int32>
+                            <x:Int32>6</x:Int32>
+                            <x:Int32>7</x:Int32>
+                            <x:Int32>8</x:Int32>
+                            <x:Int32>9</x:Int32>
+                            <x:Int32>10</x:Int32>
+                        </x:Array>
+                    </Picker.ItemsSource>
+                </Picker>
+            </Frame>
+
+            <ActivityIndicator x:Name="LoadingIndicator"
+                   IsVisible="False"
+                   IsRunning="False"
+                   Color="{AppThemeBinding Light='#007AFF', Dark='#0A84FF'}"
+                   HeightRequest="40"
+                   WidthRequest="40"
+                   HorizontalOptions="Center" />
+
+            <Button x:Name="ConfirmButton"
+                    Text="Confirm"
+                    FontSize="22"
+                    Clicked="OnConfirmButtonClicked"
+                    BackgroundColor="{AppThemeBinding Light='#007AFF', Dark='#0A84FF'}"
+                    TextColor="White"
+                    Padding="15" 
+                    IsVisible="False"/>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

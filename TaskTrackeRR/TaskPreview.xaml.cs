@@ -2,8 +2,9 @@ namespace TaskTrackeRR;
 
 public partial class TaskPreview : ContentPage
 {
-	public TaskPreview()
-	{
-		InitializeComponent();
-	}
+    public TaskPreview(TaskModel task)
+    {
+        InitializeComponent();
+        BindingContext = task;
+    }
 }

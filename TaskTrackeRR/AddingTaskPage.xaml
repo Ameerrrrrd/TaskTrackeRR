@@ -5,6 +5,7 @@
              BackgroundColor="{AppThemeBinding Light='White', Dark='Black'}">
 
     <ScrollView>
+
         <VerticalStackLayout Padding="25" Spacing="25">
 
             <Label Text="Adding new Task:"
@@ -88,7 +89,7 @@
             <ActivityIndicator x:Name="LoadingIndicator"
                    IsVisible="False"
                    IsRunning="False"
-                   Color="Gray"
+                   Color="{AppThemeBinding Light='#007AFF', Dark='#0A84FF'}"
                    HeightRequest="40"
                    WidthRequest="40"
                    HorizontalOptions="Center" />

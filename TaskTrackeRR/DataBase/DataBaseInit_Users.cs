@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using MySqlConnector;
 using BCrypt.Net;
 using System.Diagnostics;
+using System.Globalization;
 
 namespace TaskTrackeRR
 {
@@ -13,7 +14,7 @@ namespace TaskTrackeRR
     {
         private static readonly MySqlConnectionStringBuilder builder = new MySqlConnectionStringBuilder
         {
-            Server = "192.168.220.23",
+            Server = "192.168.199.240",
             UserID = "root",
             Password = "root",
             Database = "troll",
@@ -119,11 +120,46 @@ namespace TaskTrackeRR
             }
 
             int userId = reader.GetInt32("user_ID");
-            // например, сохранить ID в Preferences
+
             Preferences.Set("current_user_id", userId);
 
             return userId;
         }
 
+
+
+        // get user recent task
+        public static string GetNearestDeadline(int userId)
+        {
+
+            using var conn = new MySqlConnection(builder.ConnectionString);
+            conn.Open();
+
+            var cmd = conn.CreateCommand();
+            cmd.CommandText = @"
+                                SELECT dueDate
+                                FROM user_tasks
+                                WHERE user_id = @user_id
+                                  AND dueDate IS NOT NULL
+                                  AND dueDate NOT IN ('Everyday', 'None', '')
+                                ORDER BY STR_TO_DATE(dueDate, '%d.%m.%Y') ASC
+                                LIMIT 1;
+                              ";
+            cmd.Parameters.AddWithValue("@user_id", userId);
+
+            var result = cmd.ExecuteScalar() as string;
+
+            if (string.IsNullOrEmpty(result))
+                return "Нет активных задач";
+
+            if (DateTime.TryParseExact(result, "dd.MM.yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out var dt))
+            {
+                if (dt.Date == DateTime.Today) return "Today";
+                if (dt.Date == DateTime.Today.AddDays(1)) return "Tomorrow";
+                return dt.ToString("dd MMMM yyyy", new CultureInfo("en-EN"));
+            }
+
+            return result;
+        }
     }
 }

@@ -13,7 +13,7 @@ namespace TaskTrackeRR
     {
         private static readonly MySqlConnectionStringBuilder builder = new MySqlConnectionStringBuilder
         {
-            Server = "192.168.220.23", 
+            Server = "192.168.199.240",
             UserID = "root",
             Password = "root",
             Database = "troll",
@@ -23,7 +23,7 @@ namespace TaskTrackeRR
         {
             using var conn = new MySqlConnection(builder.ConnectionString);
             await conn.OpenAsync();
-
+            
             try
             {
                 var insertCommand = new MySqlCommand(@"
@@ -98,6 +98,23 @@ namespace TaskTrackeRR
 
             return tasks;
         }
+        public static async Task DeleteTasksByTaskIdAsync(int taskId)
+        {
+            using var conn = new MySqlConnection(builder.ConnectionString);
+            await conn.OpenAsync();
+
+            try
+            {
+                var deleteCommand = new MySqlCommand("DELETE FROM user_tasks WHERE task_id = @taskId", conn);
+                deleteCommand.Parameters.AddWithValue("@taskId", taskId);
+
+                await deleteCommand.ExecuteNonQueryAsync();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error due deleting task: {ex.Message}");
+            }
+        }
     }
     public static class TextTruncator
     {
@@ -118,5 +135,9 @@ namespace TaskTrackeRR
     {
         public static int TaskId { get; set; }
         public static string TaskName { get; set; } = string.Empty;
+        public static string TaskDescription { get; set; } = string.Empty;
+        public static string TaskDueDate { get; set; } = string.Empty;
+        public static string TaskDifficulty { get; set; } = string.Empty;
+        public static string TaskStoryPoints { get; set; } = string.Empty;
     }
 }

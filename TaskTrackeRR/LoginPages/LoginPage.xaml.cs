@@ -28,6 +28,7 @@ public partial class LoginPage : ContentPage
             if (userId != null)
             {
                 Preferences.Set("current_user_id", userId.Value);
+                Preferences.Set("user_login", emailEntry.Text);
                 var tasks = await DataBaseInit_tasks.ShowUserTasks(userId.Value);
 
                 var mainPage = new MainPage();

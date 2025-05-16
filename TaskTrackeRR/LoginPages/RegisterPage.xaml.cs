@@ -45,7 +45,7 @@ public partial class RegisterPage : ContentPage
             }
 
 
-
+            // Preferences.Set("current_user_id", userId)
             Preferences.Set("user_email", email);
             Preferences.Set("user_password", password);
             Preferences.Set("user_login", login);
