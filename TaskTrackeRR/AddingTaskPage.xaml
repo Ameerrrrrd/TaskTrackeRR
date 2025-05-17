@@ -18,6 +18,8 @@
                    Placeholder="Enter task name (max 30 chars)"
                    FontSize="18" 
                    TextChanged="OnNameTextChanged"/>
+            
+            <!-- Всплывающая ошибка -->
             <Label x:Name="NameErrorLabel"
                    Text="Maximum 30 characters allowed"
                    TextColor="Red"
@@ -56,6 +58,7 @@
                     SelectedIndexChanged="OnDifficultySelected"
                     FontSize="18">
                 <Picker.Items>
+                    <!-- перечисление -->
                     <x:String></x:String>
                     <x:String>Very Hard</x:String>
                     <x:String>Hard</x:String>
@@ -70,6 +73,7 @@
                     SelectedIndexChanged="OnStoryPointsSelected"
                     FontSize="18">
                 <Picker.ItemsSource>
+                    <!-- перечисление -->
                     <x:Array Type="{x:Type x:Int32}">
                         <x:Int32>0</x:Int32>
                         <x:Int32>1</x:Int32>

@@ -68,6 +68,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="AdminPages\AdminPanel.xaml.cs">
+	    <DependentUpon>AdminPanel.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="TaskPreviewPage.xaml.cs">
 	    <DependentUpon>TaskPreviewPage.xaml</DependentUpon>
 	  </Compile>
@@ -83,7 +86,7 @@
 	  <MauiXaml Update="LoginPages\RegisterPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="TaskEdit.xaml">
+	  <MauiXaml Update="AdminPages\AdminPanel.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="TaskPreviewPage.xaml">

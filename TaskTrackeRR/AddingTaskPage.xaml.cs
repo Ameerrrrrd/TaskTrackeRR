@@ -121,8 +121,6 @@ public partial class AddingTaskPage : ContentPage
                 await DataBaseInit_tasks.InsertTaskInDB(currentUserId.Value, taskName, taskDescription, taskDueDate, taskDifficulty, taskStoryPoints.ToString());
                 await DisplayAlert("Task Added", $"Name: {taskName}\nDescription: {taskDescription}\nDue: {taskDueDate}\nDifficulty: {taskDifficulty}\nStory Points: {taskStoryPoints}", "OK");
 
-
-
                 await Navigation.PushAsync(new MainPage());
             }
         }

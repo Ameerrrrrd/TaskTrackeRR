@@ -3,10 +3,24 @@ using System.Threading.Tasks;
 
 namespace TaskTrackeRR;
 
-public partial class MainPage : ContentPage
+public interface ITaskProcessor
+{
+    public void ProcessTask(string task)
+    {
+        Console.WriteLine($"Обработка задачи: {task}");
+    }
+
+    public void RefferPages()
+    {
+        Console.WriteLine("Совершен перехож по странице");
+    }
+}
+
+public partial class MainPage : ContentPage,ITaskProcessor
 {
     public ObservableCollection<TaskModel> Tasks { get; set; } = new();
 
+    public ITaskProcessor logging;
 
     public MainPage()
     {
@@ -15,6 +29,7 @@ public partial class MainPage : ContentPage
         GreetingText();
     }
 
+    
     // конуструктор для подгрузки со смежных страниц для оптимизации
     public MainPage(ObservableCollection<TaskModel> tasks)
     {
@@ -24,6 +39,7 @@ public partial class MainPage : ContentPage
         GreetingText();
     }
 
+    //обработка блока с логином и дедлайном
     public async void GreetingText()
     {
         string user_name = Preferences.Get("user_login", "-1");
@@ -81,6 +97,7 @@ public partial class MainPage : ContentPage
                 int currentUserId = Preferences.Get("current_user_id", -1);
                 if (currentUserId != -1)
                 {
+
                     await DataBaseInit_tasks.InsertTaskByEntry(currentUserId, newTask);
 
                     Tasks.Add(new TaskModel
@@ -97,6 +114,8 @@ public partial class MainPage : ContentPage
             }
 
         }
+        logging.RefferPages();
+
     }
 
     // просмотр таска по нажатию
@@ -107,6 +126,8 @@ public partial class MainPage : ContentPage
         {
             await Navigation.PushAsync(new TaskPreviewPage(selectedTask.TaskId));
             SelectedTaskContext.TaskId = selectedTask.TaskId;
+            logging.RefferPages();
+            logging.ProcessTask(selectedTask.Name);
         }
     }
 
@@ -127,5 +148,13 @@ public partial class MainPage : ContentPage
             await DataBaseInit_tasks.DeleteTasksByTaskIdAsync(taskId);
             Tasks.Remove(task);
         }
+    }
+
+    private async void OnAboutTapped(object sender, EventArgs e)
+    {
+        await DisplayAlert("/", "You'll reffer to github with readme", "OK");
+        var uri = new Uri("https://github.com/Ameerrrrrd/TaskTrackeRR");
+        await Launcher.Default.OpenAsync(uri);
+        logging.RefferPages();
     }
 }
