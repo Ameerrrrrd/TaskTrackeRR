@@ -27,7 +27,7 @@ public partial class TaskPreviewPage : ContentPage
 
     private static readonly MySqlConnectionStringBuilder builder = new MySqlConnectionStringBuilder
     {
-        Server = "192.168.199.240",
+        Server = "192.168.0.19",
         UserID = "root",
         Password = "root",
         Database = "troll",

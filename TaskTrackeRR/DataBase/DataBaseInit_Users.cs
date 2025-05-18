@@ -14,7 +14,7 @@ namespace TaskTrackeRR
     {
         private static readonly MySqlConnectionStringBuilder builder = new MySqlConnectionStringBuilder
         {
-            Server = "192.168.199.240",
+            Server = "192.168.0.19",
             UserID = "root",
             Password = "root",
             Database = "troll",
@@ -107,7 +107,7 @@ namespace TaskTrackeRR
             using var reader = await cmd.ExecuteReaderAsync();
             if (!await reader.ReadAsync())
             {
-                await Shell.Current.DisplayAlert("Ошибка", "Такой email или логин не зарегистрирован.", "OK");
+                await Shell.Current.DisplayAlert("Error", "Email is already registered.", "OK");
                 return null;
             }
 
@@ -115,7 +115,7 @@ namespace TaskTrackeRR
             bool isPasswordValid = BCrypt.Net.BCrypt.Verify(password, storedHash);
             if (!isPasswordValid)
             {
-                await Shell.Current.DisplayAlert("Ошибка", "Неправильный пароль.", "OK");
+                await Shell.Current.DisplayAlert("Error", "Incorrect password.", "OK");
                 return null;
             }
 
@@ -150,7 +150,7 @@ namespace TaskTrackeRR
             var result = cmd.ExecuteScalar() as string;
 
             if (string.IsNullOrEmpty(result))
-                return "Нет активных задач";
+                return "No active tasks with deadline";
 
             if (DateTime.TryParseExact(result, "dd.MM.yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out var dt))
             {

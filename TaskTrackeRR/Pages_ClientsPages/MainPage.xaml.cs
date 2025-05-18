@@ -47,7 +47,7 @@ public partial class MainPage : ContentPage,ITaskProcessor
 
         int user_id = Preferences.Get("current_user_id", -1);
         string deadlineValue = DataBaseInit_Users.GetNearestDeadline(user_id);
-        DeadlineText.Text = $"🕒 Hottest deadline: {deadlineValue}";
+        DeadlineText.Text = $"🕒 Hottest: {deadlineValue}";
 
     }
 
@@ -89,7 +89,10 @@ public partial class MainPage : ContentPage,ITaskProcessor
         var newTask = NewTaskEntry.Text?.Trim();
 
         if (string.IsNullOrEmpty(newTask))
+        {
             await Navigation.PushAsync(new AddingTaskPage());
+            //logging.RefferPages();
+        }
         else
         {
             try
@@ -114,7 +117,7 @@ public partial class MainPage : ContentPage,ITaskProcessor
             }
 
         }
-        logging.RefferPages();
+        
 
     }
 
@@ -126,8 +129,9 @@ public partial class MainPage : ContentPage,ITaskProcessor
         {
             await Navigation.PushAsync(new TaskPreviewPage(selectedTask.TaskId));
             SelectedTaskContext.TaskId = selectedTask.TaskId;
-            logging.RefferPages();
-            logging.ProcessTask(selectedTask.Name);
+            
+            //logging.RefferPages();
+            //logging.ProcessTask(selectedTask.Name);
         }
     }
 
@@ -155,6 +159,6 @@ public partial class MainPage : ContentPage,ITaskProcessor
         await DisplayAlert("/", "You'll reffer to github with readme", "OK");
         var uri = new Uri("https://github.com/Ameerrrrrd/TaskTrackeRR");
         await Launcher.Default.OpenAsync(uri);
-        logging.RefferPages();
+        //logging.RefferPages();
     }
 }
