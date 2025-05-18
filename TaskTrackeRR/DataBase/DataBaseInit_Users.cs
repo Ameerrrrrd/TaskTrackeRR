@@ -161,5 +161,52 @@ namespace TaskTrackeRR
 
             return result;
         }
+        public class User
+        {
+            public int UserId { get; set; }
+            public string Email { get; set; }
+            public string Login { get; set; }
+        }
+
+        public static async Task<List<User>> GetUsersAsync()
+        {
+            var users = new List<User>();
+
+            using var connection = new MySqlConnection(builder.ConnectionString);
+            await connection.OpenAsync();
+
+            var query = "SELECT user_id, email, login FROM user_login";
+            using var command = new MySqlCommand(query, connection);
+            using var reader = await command.ExecuteReaderAsync();
+
+            while (await reader.ReadAsync())
+            {
+                users.Add(new User
+                {
+                    UserId = reader.GetInt32(0),
+                    Email = reader.GetString(1),
+                    Login = reader.GetString(2)
+                });
+            }
+
+            return users;
+        }
+
+        public static async Task ExportUsersToTxtAsync(List<User> users, string filePath)
+        {
+            var sb = new StringBuilder();
+
+            foreach (var user in users)
+            {
+                sb.AppendLine($"user_id: {user.UserId}");
+                sb.AppendLine($"email: {user.Email}");
+                sb.AppendLine($"login: {user.Login}");
+                sb.AppendLine(); // Пустая строка между пользователями
+            }
+
+            using var writer = new StreamWriter(filePath, false, Encoding.UTF8);
+            await writer.WriteAsync(sb.ToString());
+        }
     }
+
 }

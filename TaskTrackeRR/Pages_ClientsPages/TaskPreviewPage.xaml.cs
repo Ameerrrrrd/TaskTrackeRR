@@ -229,7 +229,7 @@ public partial class TaskPreviewPage : ContentPage
                 command.Parameters.AddWithValue(param.Key, param.Value);
 
             int rowsAffected = await command.ExecuteNonQueryAsync();
-            await DisplayAlert("Успех", $"Обновлено: {rowsAffected} полей", "OK");
+            //await DisplayAlert("Успех", $"Обновлено: {rowsAffected} полей", "OK");
 
             int? currentUserId = Preferences.Get("current_user_id", -1);
             if (currentUserId != -1)
