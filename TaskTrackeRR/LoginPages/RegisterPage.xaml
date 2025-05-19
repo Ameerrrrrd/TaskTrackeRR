@@ -35,19 +35,12 @@
                    IsPassword="False"
                    TextColor="White"
                    PlaceholderColor="Gray" />
-            
+
             <Entry x:Name="passwordEntry"
                    Placeholder="Password"
                    IsPassword="True"
                    TextColor="White"
                    PlaceholderColor="Gray" />
-
-            <HorizontalStackLayout VerticalOptions="Center">
-                <CheckBox x:Name="RememberMeCheckbox" />
-                <Label Text="Запомнить меня"
-                   VerticalOptions="Center"
-                   Margin="10,0,0,0" />
-            </HorizontalStackLayout>
 
             <Button Text="Sign Up"
                     Clicked="OnRegisterButClicked"

@@ -37,12 +37,6 @@
                    PlaceholderColor="Gray" />
 
             <HorizontalStackLayout VerticalOptions="Center">
-                <CheckBox x:Name="RememberMeCheckbox"
-                          IsChecked="False"/>
-                <Label Text="Remember me"
-                       VerticalOptions="Center"
-                       Margin="10,0,30,0" />
-
                 <CheckBox x:Name="ShowPass" 
                           CheckedChanged="ShowPassCheckedChanged"/>
                 <Label Text="Show password"

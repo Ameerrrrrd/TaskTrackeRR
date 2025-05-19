@@ -39,23 +39,15 @@ public partial class LoginPage : ContentPage
             {
                 Preferences.Set("current_user_id", userId.Value);
                 Preferences.Set("user_login", emailEntry.Text);
-                if (RememberMeCheckbox.IsChecked)
-                {
-                    Preferences.Set("remember_me", true);
-                    await SecureStorage.SetAsync("user_login", emailEntry.Text);
-                }
-                else
-                    Preferences.Set("remember_me", false);
                 //var tasks = await DataBaseInit_tasks.ShowUserTasks(userId.Value);
-                //var mainPage = new MainPage();
+
+                var mainPage = new MainPage();
                 //foreach (var task in tasks)
                 //    mainPage.Tasks.Add(task);
 
                 await DisplayAlert("Success", "Login  successfully", "OK");
                 await Shell.Current.GoToAsync("//MainPage");
             }
-            else
-                await DisplayAlert("Ошибка", "Неверный логин или пароль", "OK");
 
         }
         catch (Exception ex)
