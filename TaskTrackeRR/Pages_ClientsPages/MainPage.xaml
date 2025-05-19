@@ -20,7 +20,7 @@
 
                     <BoxView BackgroundColor="{AppThemeBinding Light='Black', Dark='White'}"
                          HeightRequest="1"
-                         Margin="0,-25,0,0" />
+                         Margin="0,-70,0,0" />
 
                 <Frame CornerRadius="12" 
                        Padding="10" 

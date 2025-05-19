@@ -166,7 +166,7 @@ public partial class TaskPreviewPage : ContentPage
             return;
         }
 
-        if (taskNameEntry.Text.Length > 30)
+        if (!AddingTaskPage.IsTaskNameValid(taskNameEntry.Text))
         {
             await DisplayAlert("Error", "Name can't exceed 30 characters.", "OK");
             return;

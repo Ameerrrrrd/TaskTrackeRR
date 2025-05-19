@@ -36,6 +36,20 @@
                    TextColor="White"
                    PlaceholderColor="Gray" />
 
+            <HorizontalStackLayout VerticalOptions="Center">
+                <CheckBox x:Name="RememberMeCheckbox"
+                          IsChecked="False"/>
+                <Label Text="Remember me"
+                       VerticalOptions="Center"
+                       Margin="10,0,30,0" />
+
+                <CheckBox x:Name="ShowPass" 
+                          CheckedChanged="ShowPassCheckedChanged"/>
+                <Label Text="Show password"
+                   VerticalOptions="Center"
+                   Margin="10,0,0,0" />
+            </HorizontalStackLayout>
+
             <Button Text="Log in"
                     Clicked="OnLoginButClicked"
                     BackgroundColor="{AppThemeBinding Light='#007AFF', Dark='#0A84FF'}"

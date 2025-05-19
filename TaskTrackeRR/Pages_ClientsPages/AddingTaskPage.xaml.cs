@@ -5,6 +5,9 @@ namespace TaskTrackeRR;
 
 public partial class AddingTaskPage : ContentPage
 {
+    public delegate bool ValidateNameDelegate(string name); // иницилизация делегата
+    public ValidateNameDelegate nameValidator;
+
     private static string taskName = string.Empty;
     private static string taskDescription = string.Empty;
     private string taskDueDate = string.Empty;
@@ -22,6 +25,8 @@ public partial class AddingTaskPage : ContentPage
     {
         InitializeComponent();
         NameEntry.TextChanged += OnNameTextChanged;
+
+        nameValidator = IsTaskNameValid; // добавление делегатного метода в конструкторе
     }
 
     private void OnNameTextChanged(object sender, TextChangedEventArgs e)
@@ -79,6 +84,11 @@ public partial class AddingTaskPage : ContentPage
         taskStoryPoints = picker.SelectedIndex == 0 ? 0 : (int)picker.SelectedItem;
     }
 
+    public static bool IsTaskNameValid(string name)
+    {
+        return !string.IsNullOrWhiteSpace(name) && name.Length <= 30;
+    }
+
     private async void OnAddTaskButtonClicked(object sender, EventArgs e)
     {
         taskName = NameEntry.Text?.Trim();
@@ -98,7 +108,7 @@ public partial class AddingTaskPage : ContentPage
             return;
         }
 
-        if (NameEntry.Text.Length > 30)
+        if (!nameValidator(taskName)) // вызов делегата
         {
             await DisplayAlert("Error", "Name can't exceed 30 characters.", "OK");
             return;
