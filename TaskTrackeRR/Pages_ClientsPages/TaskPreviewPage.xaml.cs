@@ -240,7 +240,7 @@ public partial class TaskPreviewPage : ContentPage
                 foreach (var task in tasks)
                     mainPage.Tasks.Add(task);
 
-                await Navigation.PushAsync(new MainPage());
+                await Shell.Current.GoToAsync("//MainPage");
             }
         }
 

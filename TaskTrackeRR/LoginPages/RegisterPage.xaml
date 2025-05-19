@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="TaskTrackeRR.RegisterPage"
              Title="RegisterPage"
-             NavigationPage.HasNavigationBar="False"
+             Shell.NavBarIsVisible="False"
              BackgroundColor="{AppThemeBinding Light='White', Dark='Black'}">
     <ScrollView>
         <VerticalStackLayout Padding="30"

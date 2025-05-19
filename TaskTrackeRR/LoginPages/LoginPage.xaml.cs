@@ -23,28 +23,29 @@ public partial class LoginPage : ContentPage
         string input = emailEntry.Text?.Trim();
         string password = passwordEntry.Text;
 
-        if (emailEntry.Text == "admin" && passwordEntry.Text == "admin")
-        {
-            var ap = new AdminPanel();
-            await Navigation.PushAsync(ap);
-            return;
-        }
 
         try
         {
+            if (emailEntry.Text == "admin" && passwordEntry.Text == "admin")
+            {
+                var ap = new AdminPanel();
+                await Navigation.PushAsync(ap);
+                return;
+            }
+
             int? userId = await DataBaseInit_Users.CheckUserLoginAsync(input, password);
             if (userId != null)
             {
                 Preferences.Set("current_user_id", userId.Value);
                 Preferences.Set("user_login", emailEntry.Text);
-                var tasks = await DataBaseInit_tasks.ShowUserTasks(userId.Value);
+                //var tasks = await DataBaseInit_tasks.ShowUserTasks(userId.Value);
 
                 var mainPage = new MainPage();
-                foreach (var task in tasks)
-                    mainPage.Tasks.Add(task);
+                //foreach (var task in tasks)
+                //    mainPage.Tasks.Add(task);
 
                 await DisplayAlert("Success", "Login  successfully", "OK");
-                await Navigation.PushAsync(mainPage);
+                await Shell.Current.GoToAsync("//MainPage");
             }
 
         }
