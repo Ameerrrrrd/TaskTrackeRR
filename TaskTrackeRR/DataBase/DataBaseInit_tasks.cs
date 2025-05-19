@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Transactions;
 using MySqlConnector;
+using static TaskTrackeRR.DataBaseInit_Users;
 
 namespace TaskTrackeRR
 {
@@ -13,7 +14,7 @@ namespace TaskTrackeRR
     {
         private static readonly MySqlConnectionStringBuilder builder = new MySqlConnectionStringBuilder
         {
-            Server = "192.168.0.19",
+            Server = "192.168.217.240",
             UserID = "root",
             Password = "root",
             Database = "troll",
@@ -115,7 +116,33 @@ namespace TaskTrackeRR
                 Console.WriteLine($"Error due deleting task: {ex.Message}");
             }
         }
-    }
+
+        public static async Task GetUserTaskCount(List<UserTaskCount> users)
+        {
+            using var connection = new MySqlConnection(builder.ConnectionString);
+            await connection.OpenAsync();
+
+            string query = @"
+                SELECT ul.user_id, ul.login, COUNT(ut.task_id) AS task_count
+                FROM user_login ul
+                LEFT JOIN user_tasks ut ON ul.user_id = ut.user_id
+                GROUP BY ul.user_id, ul.login
+                ORDER BY task_count DESC;";
+
+            using var command = new MySqlCommand(query, connection);
+            using var reader = await command.ExecuteReaderAsync();
+
+            while (await reader.ReadAsync())
+            {
+                users.Add(new UserTaskCount
+                {
+                    user_id = reader.GetInt32(0),
+                    login = reader.GetString(1),
+                    task_count = reader.GetInt32(2)
+                });
+            }
+        }
+}
     public static class TextTruncator
     {
         public static string Truncate(string input, int maxLength = 30)

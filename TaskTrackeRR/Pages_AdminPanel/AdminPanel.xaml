@@ -2,21 +2,26 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="TaskTrackeRR.AdminPanel"
-             Title="AdminPanel">
+             Title="AdminPanel"
+             BackgroundColor="{AppThemeBinding Light='White', Dark='Black'}">
+    
     <VerticalStackLayout Padding="20" Spacing="20">
 
         <Label Text="Admin Panel"
            FontSize="32"
+           TextColor="{AppThemeBinding Light='Black', Dark='White'}"
            HorizontalOptions="Center" />
 
         <Button Text="Chart"
             FontSize="20"
             HorizontalOptions="Fill"
-            Clicked="OnChartButtonClicked" />
+            Clicked="OnChartButtonClicked"
+                />
 
         <Label Text="User Information"
            FontSize="20"
-           HorizontalOptions="Start" />
+           HorizontalOptions="Start" 
+           TextColor="{AppThemeBinding Light='Black', Dark='White'}"/>
 
         <BoxView HeightRequest="1"
              Color="Gray"
