@@ -92,6 +92,9 @@
 	  <MauiXaml Update="Pages_AdminPanel\UsersChartPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="WebViewGithubReffer.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	</ItemGroup>
 
 </Project>

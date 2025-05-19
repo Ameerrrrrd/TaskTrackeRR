@@ -9,30 +9,16 @@
 
         <ScrollView Grid.Row="0">
             <VerticalStackLayout Padding="20" Spacing="15">
-                <HorizontalStackLayout>
-                    <Label Text="To-Do List 📅"
+                
+                <Label Text="To-Do List 📅"
                            FontSize="20"
                            TextColor="{AppThemeBinding Light='Black', Dark='White'}"
                            FontAttributes="Bold" />
-                    
+
                     <ImageButton Source="search.png" 
                                  Grid.Column="1" />
 
-                    <Label Text="About/Help"
-                           Margin="100,0,0,0"
-                           FontAttributes="Bold" 
-                           HorizontalOptions="End" 
-                           FontSize="20"
-                           TextColor="{AppThemeBinding Light='Black', Dark='White'}"
-                           Grid.Column="2" >
-                        <Label.GestureRecognizers>
-                            <TapGestureRecognizer
-                                Tapped="OnAboutTapped" />
-                        </Label.GestureRecognizers>
-                    </Label>
-                </HorizontalStackLayout>
-
-                <BoxView BackgroundColor="{AppThemeBinding Light='Black', Dark='White'}"
+                    <BoxView BackgroundColor="{AppThemeBinding Light='Black', Dark='White'}"
                          HeightRequest="1"
                          Margin="0,-25,0,0" />
 

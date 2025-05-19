@@ -7,7 +7,7 @@
     Title="TaskTrackeRR">
 
     <ShellContent
-        Title="Home"
+        Title="Log out"
         ContentTemplate="{DataTemplate local:RegisterPage}"
         Route="RegisterPage"
         />
@@ -16,4 +16,9 @@
         <ShellContent Route="MainPage" ContentTemplate="{DataTemplate local:MainPage}" />
     </FlyoutItem>
 
+
+    <FlyoutItem Title="About / Help">
+        <ShellContent Route="AboutHelp" ContentTemplate="{DataTemplate local:WebViewGithubReffer}" />
+    </FlyoutItem>
+    
 </Shell>

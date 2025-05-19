@@ -153,12 +153,4 @@ public partial class MainPage : ContentPage,ITaskProcessor
             Tasks.Remove(task);
         }
     }
-
-    private async void OnAboutTapped(object sender, EventArgs e)
-    {
-        await DisplayAlert("/", "You'll reffer to github with readme", "OK");
-        var uri = new Uri("https://github.com/Ameerrrrrd/TaskTrackeRR");
-        await Launcher.Default.OpenAsync(uri);
-        //logging.RefferPages();
-    }
 }
