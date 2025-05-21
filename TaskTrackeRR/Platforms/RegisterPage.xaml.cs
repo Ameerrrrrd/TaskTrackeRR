@@ -66,7 +66,8 @@ public partial class RegisterPage : ContentPage
         if (result)
         {
             await DisplayAlert("Success", "Account created", "OK");
-            await Shell.Current.GoToAsync("//MainPage");
+            var mainPage = new MainPage();
+            await Navigation.PushAsync(mainPage);
         }
         else
         {

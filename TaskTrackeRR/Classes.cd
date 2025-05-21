@@ -1,0 +1,170 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Comment CommentText="DataBase">
+    <Position X="13.905" Y="0.529" Height="0.291" Width="0.7" />
+  </Comment>
+  <Comment CommentText="Login/Register&#xD;&#xA;">
+    <Position X="10.126" Y="0.712" Height="0.291" Width="1.102" />
+  </Comment>
+  <Comment CommentText="AdminPanel">
+    <Position X="7.645" Y="0.578" Height="0.291" Width="0.892" />
+  </Comment>
+  <Comment CommentText="ClientPages">
+    <Position X="2.624" Y="0.5" Height="0.291" Width="0.892" />
+  </Comment>
+  <Comment CommentText="Platform init&#xD;&#xA;">
+    <Position X="11.023" Y="5.347" Height="0.291" Width="1.102" />
+  </Comment>
+  <Comment CommentText="Boot classes">
+    <Position X="7.068" Y="5.385" Height="0.291" Width="0.964" />
+  </Comment>
+  <Class Name="TaskTrackeRR.DataBaseInit_tasks">
+    <Position X="11.75" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAAEAAIAAAAIAAAAAAAAAIAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>DataBase\DataBaseInit_tasks.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TaskTrackeRR.TextTruncator">
+    <Position X="13.5" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DataBase\DataBaseInit_tasks.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TaskTrackeRR.TaskModel">
+    <Position X="11.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAAAAAAAQAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DataBase\DataBaseInit_tasks.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TaskTrackeRR.SelectedTaskContext">
+    <Position X="15.5" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAoAAIAAAAAAEABAAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DataBase\DataBaseInit_tasks.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TaskTrackeRR.DataBaseInit_Users">
+    <Position X="13.5" Y="1" Width="1.5" />
+    <NestedTypes>
+      <Class Name="TaskTrackeRR.DataBaseInit_Users.User" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>DataBase\DataBaseInit_Users.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAAAAAAAAgAAAAAAAAIAAAAAAQAAAgBBAA=</HashCode>
+      <FileName>DataBase\DataBaseInit_Users.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TaskTrackeRR.LoginPage">
+    <Position X="10" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>LoginPages\LoginPage.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TaskTrackeRR.RegisterPage">
+    <Position X="10" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAEAA=</HashCode>
+      <FileName>LoginPages\RegisterPage.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TaskTrackeRR.AdminPanel">
+    <Position X="8.25" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAkAAAAAQAAAAQAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Pages_AdminPanel\AdminPanel.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TaskTrackeRR.UsersChartPage">
+    <Position X="6.5" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Pages_AdminPanel\UsersChartPage.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TaskTrackeRR.UserTaskCount">
+    <Position X="8.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAEAA=</HashCode>
+      <FileName>Pages_AdminPanel\UsersChartPage.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TaskTrackeRR.AddingTaskPage">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <NestedTypes>
+      <Delegate Name="TaskTrackeRR.AddingTaskPage.ValidateNameDelegate" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Pages_ClientsPages\AddingTaskPage.xaml.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAEAgAAAgAECIABAAEBgAAACBAABEACAAAAAAQQAKA=</HashCode>
+      <FileName>Pages_ClientsPages\AddingTaskPage.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TaskTrackeRR.MainPage">
+    <Position X="4" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAgAAAAIAAQAAAAAAAAAAAAAAAEoAABAAAA=</HashCode>
+      <FileName>Pages_ClientsPages\MainPage.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="TaskTrackeRR.TaskPreviewPage">
+    <Position X="2.25" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAhBAAKBAAgIAIABIAAAhAAAAAAMBEAKAIAAAIgQIAE=</HashCode>
+      <FileName>Pages_ClientsPages\TaskPreviewPage.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TaskTrackeRR.WebViewGithubReffer">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Pages_ClientsPages\WebViewGithubReffer.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TaskTrackeRR.App">
+    <Position X="6" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>App.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TaskTrackeRR.AppShell">
+    <Position X="7.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>AppShell.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TaskTrackeRR.MainActivity">
+    <Position X="9.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Platforms\Android\MainActivity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TaskTrackeRR.MainApplication">
+    <Position X="11.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Platforms\Android\MainApplication.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="TaskTrackeRR.ITaskProcessor">
+    <Position X="4" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAACAAA=</HashCode>
+      <FileName>Pages_ClientsPages\MainPage.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

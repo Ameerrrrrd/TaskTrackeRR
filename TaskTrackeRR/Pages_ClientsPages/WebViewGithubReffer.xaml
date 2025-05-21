@@ -3,7 +3,18 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="TaskTrackeRR.WebViewGithubReffer"
              Title="WebViewGithubReffer">
-    <WebView Source="https://github.com/Ameerrrrrd/TaskTrackeRR"
-             HorizontalOptions="Fill"
-             VerticalOptions="Fill" />
+    <Grid>
+        <WebView x:Name="WebViewer"
+                 Source="https://github.com/Ameerrrrrd/TaskTrackeRR"
+                 Navigating="OnNavigating"
+                 Navigated="OnNavigated"
+                 HorizontalOptions="Fill"
+                 VerticalOptions="Fill" />
+
+        <ActivityIndicator IsRunning="{Binding IsLoading}"
+                           IsVisible="{Binding IsLoading}"
+                           Color="{AppThemeBinding Light='#007AFF', Dark='#0A84FF'}"
+                           VerticalOptions="Center"
+                           HorizontalOptions="Center" />
+    </Grid>
 </ContentPage>

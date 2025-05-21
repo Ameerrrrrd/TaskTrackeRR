@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Threading.Tasks;
 
 namespace TaskTrackeRR;
@@ -39,6 +40,7 @@ public partial class MainPage : ContentPage,ITaskProcessor
         GreetingText();
     }
 
+
     //обработка блока с логином и дедлайном
     public async void GreetingText()
     {
@@ -60,7 +62,7 @@ public partial class MainPage : ContentPage,ITaskProcessor
     }
 
     // загрузка тасков из БД
-    private async Task LoadTasksAsync()
+    public async Task LoadTasksAsync()
     {
         if (Tasks.Count > 0) return;
 
@@ -82,6 +84,8 @@ public partial class MainPage : ContentPage,ITaskProcessor
             IsBusy = false;
         }
     }
+
+
 
     // обработчик кнопки добавления тасков
     private async void OnAddTaskClicked(object sender, EventArgs e)
@@ -115,10 +119,7 @@ public partial class MainPage : ContentPage,ITaskProcessor
             {
                 await DisplayAlert("Error", $"Error: {ex.Message}", "OK");
             }
-
         }
-        
-
     }
 
     // просмотр таска по нажатию
@@ -145,12 +146,28 @@ public partial class MainPage : ContentPage,ITaskProcessor
             if (!confirmDelete) return;
 
             var task = (TaskModel)swipeItem.BindingContext;
-            
+
             var taskId = task.TaskId;
 
             Console.WriteLine($"ASLDSLAD:AS:DAS:D:ASD:LASLDAS:D::::::: {taskId}");
             await DataBaseInit_tasks.DeleteTasksByTaskIdAsync(taskId);
             Tasks.Remove(task);
         }
+    }
+
+    private async void OnLogoutClicked(object sender, EventArgs e)
+    {
+        bool confirm = await DisplayAlert("Confirmation", "Are u sure u wanna log out?", "Yes", "No");
+
+        if (confirm)
+        {
+            var rp = new RegisterPage();
+            await Navigation.PushAsync(rp);
+        }
+    }    
+    private async void OnAboutTapped(object sender, EventArgs e)
+    {
+        var wwv = new WebViewGithubReffer();
+        await Navigation.PushAsync(wwv);
     }
 }

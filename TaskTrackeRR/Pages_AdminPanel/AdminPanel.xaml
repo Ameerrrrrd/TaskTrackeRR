@@ -5,39 +5,49 @@
              Title="AdminPanel"
              Shell.NavBarIsVisible="False"
              BackgroundColor="{AppThemeBinding Light='White', Dark='Black'}">
-    
-    <VerticalStackLayout Padding="20" Spacing="20">
+    <Grid Padding="20" RowSpacing="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
 
-        <Label Text="Admin Panel"
+        <VerticalStackLayout Grid.Row="0" Spacing="20">
+
+            <Label Text="Admin Panel"
            FontSize="32"
            TextColor="{AppThemeBinding Light='Black', Dark='White'}"
            HorizontalOptions="Center" />
 
-        <Button Text="Chart"
-            FontSize="20"
-            HorizontalOptions="Fill"
-            Clicked="OnChartButtonClicked"
-                />
+            <Button Text="Chart"
+                FontSize="20"
+                HorizontalOptions="Fill"
+                Clicked="OnChartButtonClicked"
+             />
 
-        <Label Text="User Information"
+            <Label Text="User Information"
            FontSize="20"
            HorizontalOptions="Start" 
            TextColor="{AppThemeBinding Light='Black', Dark='White'}"/>
 
-        <BoxView HeightRequest="1"
+            <BoxView HeightRequest="1"
              Color="Gray"
-             HorizontalOptions="Fill" />
+             HorizontalOptions="Fill"
+             Margin="0,-15,0,0"/>
+            
+        </VerticalStackLayout>
+        
+            <ScrollView Grid.Row="1">
+                <VerticalStackLayout x:Name="UsersLayout" Spacing="10">
+                    <!-- Users added from C# -->
+                </VerticalStackLayout>
+            </ScrollView>
 
-        <ScrollView>
-            <VerticalStackLayout x:Name="UsersLayout" Spacing="10">
-                <!-- Пользователи добавляются в C# -->
-            </VerticalStackLayout>
-        </ScrollView>
 
-        <Button Text="Export to TXT"
+        <Button Grid.Row="2"
+                Text="Export to TXT"
                 FontSize="20"
                 HorizontalOptions="Fill"
-                Clicked="OnExportButtonClicked" />
-        
-    </VerticalStackLayout>
+                Clicked="OnExportButtonClicked"/>
+    </Grid>
 </ContentPage>

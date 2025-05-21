@@ -39,14 +39,14 @@ public partial class LoginPage : ContentPage
             {
                 Preferences.Set("current_user_id", userId.Value);
                 Preferences.Set("user_login", emailEntry.Text);
-                //var tasks = await DataBaseInit_tasks.ShowUserTasks(userId.Value);
+                var tasks = await DataBaseInit_tasks.ShowUserTasks(userId.Value);
 
                 var mainPage = new MainPage();
                 //foreach (var task in tasks)
                 //    mainPage.Tasks.Add(task);
 
                 await DisplayAlert("Success", "Login  successfully", "OK");
-                await Shell.Current.GoToAsync("//MainPage");
+                await Navigation.PushAsync(mainPage);
             }
 
         }

@@ -2,25 +2,48 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="TaskTrackeRR.MainPage"
-             Shell.FlyoutBehavior="Flyout"
+             Shell.NavBarIsVisible="False"
              BackgroundColor="{AppThemeBinding Light='White', Dark='Black'}">
-
+    
     <Grid RowDefinitions="*,Auto">
-
         <ScrollView Grid.Row="0">
             <VerticalStackLayout Padding="20" Spacing="15">
-                
-                <Label Text="To-Do List 📅"
+
+                <HorizontalStackLayout>
+                    <Label Text="To-Do List 📅"
                            FontSize="20"
                            TextColor="{AppThemeBinding Light='Black', Dark='White'}"
                            FontAttributes="Bold" />
+                    <Label Text="?"
+                           FontAttributes="Bold"
+                           FontSize="30"
+                           Margin="10,-7,0,0"
+                           TextColor="{AppThemeBinding Light='#007AFF', Dark='#0A84FF'}"
+                           >
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnAboutTapped" />
+                        </Label.GestureRecognizers>
+                    </Label>
 
-                    <ImageButton Source="search.png" 
+                    <Button Text="Log out"
+                            TextColor="Wheat"
+                            FontSize="18"
+                            Padding="0"
+                            CornerRadius="12"
+                            Margin="130,-10,0,0"
+                            WidthRequest="100"
+                            BackgroundColor="Red"
+                            Clicked="OnLogoutClicked"
+                        />
+
+                </HorizontalStackLayout>
+                
+                <ImageButton Source="search.png" 
                                  Grid.Column="1" />
 
                     <BoxView BackgroundColor="{AppThemeBinding Light='Black', Dark='White'}"
                          HeightRequest="1"
-                         Margin="0,-70,0,0" />
+                         Margin="0,-65,0,0" />
 
                 <Frame CornerRadius="12" 
                        Padding="10" 
@@ -32,68 +55,68 @@
                     </VerticalStackLayout>
                 </Frame>
 
-                <CollectionView ItemsSource="{Binding Tasks}">
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate>
-                            <SwipeView>
-                                
-                                <SwipeView.RightItems >
-                                    <SwipeItems>
-                                        <SwipeItemView x:Name="DeleteSwipe"
-                                                       HeightRequest="50"
-                                                       BackgroundColor="Transparent"
-                                                       Padding="0"
-                                                       Invoked="OnDeleteSwipeItemInvoked">
+                <Grid>
+                    <CollectionView ItemsSource="{Binding Tasks}">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <SwipeView>
+                                    <SwipeView.RightItems>
+                                        <SwipeItems>
+                                            <SwipeItemView x:Name="DeleteSwipe"
+                                           HeightRequest="50"
+                                           BackgroundColor="Transparent"
+                                           Padding="0"
+                                           Invoked="OnDeleteSwipeItemInvoked">
+                                                <Frame CornerRadius="7"
+                                       HeightRequest="80"
+                                       WidthRequest="90"
+                                       Margin="0,3,0,3">
+                                                    <Image Source="trashcan.png"
+                                           WidthRequest="35"
+                                           HeightRequest="35"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="Center"/>
+                                                    <Frame.BackgroundColor>
+                                                        <AppThemeBinding Light="Red" Dark="#ad1313"/>
+                                                    </Frame.BackgroundColor>
+                                                </Frame>
+                                            </SwipeItemView>
+                                        </SwipeItems>
+                                    </SwipeView.RightItems>
 
-                                            <Frame CornerRadius="7"
-                                                   HeightRequest="80"
-                                                   WidthRequest="90"
-                                                   Margin="0,3,0,3">
+                                    <Frame Padding="15"
+                           Margin="5"
+                           CornerRadius="12"
+                           BackgroundColor="{AppThemeBinding Light='#e0e0e0', Dark='#2c2c2c'}">
+                                        <StackLayout>
+                                            <Label Text="{Binding Name}"
+                                   FontSize="18"
+                                   TextColor="{AppThemeBinding Light='Black', Dark='White'}">
+                                                <Label.GestureRecognizers>
+                                                    <TapGestureRecognizer Tapped="OnTaskTapped" />
+                                                </Label.GestureRecognizers>
+                                            </Label>
+                                            <Label Text="{Binding Description}"
+                                   FontSize="14"
+                                   TextColor="{AppThemeBinding Light='#888888', Dark='#aaaaaa'}"
+                                   LineBreakMode="TailTruncation">
+                                                <Label.GestureRecognizers>
+                                                    <TapGestureRecognizer Tapped="OnTaskTapped" />
+                                                </Label.GestureRecognizers>
+                                            </Label>
+                                        </StackLayout>
+                                    </Frame>
+                                </SwipeView>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
 
-                                                <Image Source="trashcan.png"
-                                                       WidthRequest="35"
-                                                       HeightRequest="35"
-                                                       HorizontalOptions="Center"
-                                                       VerticalOptions="Center"/>
-
-                                                <Frame.BackgroundColor>
-                                                    <AppThemeBinding Light="Red" Dark="#ad1313"/>
-                                                </Frame.BackgroundColor>
-
-                                            </Frame>
-
-                                        </SwipeItemView>
-                                    </SwipeItems>
-                                </SwipeView.RightItems>
-                                
-                                <Frame Padding="15"
-                                   Margin="5"
-                                   CornerRadius="12"
-                                   BackgroundColor="{AppThemeBinding Light='#e0e0e0', Dark='#2c2c2c'}">
-                                <StackLayout>
-                                    <Label Text="{Binding Name}"
-                                           FontSize="18"
-                                           TextColor="{AppThemeBinding Light='Black', Dark='White'}">
-                                        <Label.GestureRecognizers>
-                                            <TapGestureRecognizer Tapped="OnTaskTapped" />
-                                        </Label.GestureRecognizers>
-                                    </Label>
-                                    
-                                    <Label Text="{Binding Description}"
-                                           FontSize="14"
-                                           TextColor="{AppThemeBinding Light='#888888', Dark='#aaaaaa'}"
-                                           LineBreakMode="TailTruncation">
-                                        <Label.GestureRecognizers>
-                                            <TapGestureRecognizer Tapped="OnTaskTapped" />
-                                        </Label.GestureRecognizers>
-                                    </Label>
-                                    
-                                </StackLayout>
-                            </Frame>
-                            </SwipeView>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
+                    <ActivityIndicator IsRunning="{Binding IsBusy}"
+                       IsVisible="{Binding IsBusy}"
+                       Color="{AppThemeBinding Light='#007AFF', Dark='#0A84FF'}"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center" />
+                </Grid>
             </VerticalStackLayout>
         </ScrollView>
 

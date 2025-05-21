@@ -27,7 +27,7 @@ public partial class TaskPreviewPage : ContentPage
 
     private static readonly MySqlConnectionStringBuilder builder = new MySqlConnectionStringBuilder
     {
-        Server = "192.168.0.19",
+        Server = "192.168.217.240",
         UserID = "root",
         Password = "root",
         Database = "troll",
@@ -240,8 +240,10 @@ public partial class TaskPreviewPage : ContentPage
                 foreach (var task in tasks)
                     mainPage.Tasks.Add(task);
 
-                await Shell.Current.GoToAsync("//MainPage");
+                await DisplayAlert("success", "Task successfully changed", "OK");
+                await Navigation.PushAsync(mainPage);
             }
+            //Console.WriteLine($"dasdas;dasdasD,as;das;dlas;ldas;dlas;dasld; {currentUserId}");
         }
 
         catch (Exception ex)

@@ -29,21 +29,18 @@ public partial class RegisterPage : ContentPage
 
         try
         {
-            // Проверка заполненности полей
             if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(password))
             {
                 await DisplayAlert("Error", "Required fields are not filled in", "OK");
                 return;
             }
 
-            // Проверка формата email
             if (!Regex.IsMatch(email, @"^[\w\.-]+@[\w\.-]+\.[a-z]{2,4}$", RegexOptions.IgnoreCase))
             {
                 await DisplayAlert("Error", "Email isn't in correct format", "OK");
                 return;
             }
 
-            // Проверка существования email
             string existingEmail = await DataBaseInit_Users.GetEmailIfExistsAsync(email);
             if (!string.IsNullOrEmpty(existingEmail) && existingEmail == email)
             {
@@ -51,12 +48,10 @@ public partial class RegisterPage : ContentPage
                 return;
             }
 
-            // Сохранение данных пользователя (рекомендуется использовать SecureStorage вместо Preferences для пароля)
             Preferences.Set("user_email", email);
-            Preferences.Set("user_password", password); // Внимание: это не безопасно, лучше использовать SecureStorage
+            Preferences.Set("user_password", password); 
             Preferences.Set("user_login", login);
 
-            // Регистрация пользователя
             await DataBaseInit_Users.RegisterUserAsync(login, email, password);
             result = true;
         }
@@ -72,29 +67,26 @@ public partial class RegisterPage : ContentPage
 
         if (result)
         {
-            // Уведомление об успешной регистрации
             await DisplayAlert("Success", "Account created", "OK");
 
-            // Проверка доступности биометрической аутентификации
             var isBiometricAvailable = await CrossFingerprint.Current.IsAvailableAsync();
             if (isBiometricAvailable)
             {
-                // Предложение включить биометрический вход
-                var enableBiometric = await DisplayAlert("Включить вход по биометрии",
-                    "Хотите включить вход по биометрии для более удобного доступа?",
-                    "Да", "Нет");
+                var enableBiometric = await DisplayAlert("log in by fingerprint",
+                    "Wanna enable log in by fingerprint",
+                    "Yes", "No");
 
                 if (enableBiometric)
                 {
                     var config = new AuthenticationRequestConfiguration(
-                                                                        "Подтверждение биометрии",
-                                                                        "Подтвердите биометрию для включения функции"
+                                                                        "Confirming",
+                                                                        "Confirm your fingerprint"
                                                                        );
                     var authResult = await CrossFingerprint.Current.AuthenticateAsync(config);
 
                     if (authResult.Authenticated)
                     {
-                        Console.WriteLine("Биометрия успешно подтверждена!");
+                        Console.WriteLine("Биометрия успешно подтверждена");
                     }
                     else
                     {
@@ -104,17 +96,16 @@ public partial class RegisterPage : ContentPage
                     {
                         // Сохранение признака, что биометрический вход включен
                         Preferences.Set("biometric_login_enabled", true);
-                        await DisplayAlert("Success", "Вход по биометрии включен", "OK");
+                        await DisplayAlert("Success", "Log in by fingerprint enabled", "OK");
                     }
                     else
                     {
-                        await DisplayAlert("Error", "Не удалось подтвердить биометрию", "OK");
+                        await DisplayAlert("Error", "Error due log in by fingerprint", "OK");
                     }
                 }
             }
-
-            // Переход на главную страницу
-            await Shell.Current.GoToAsync("//MainPage");
+            var mainPage = new MainPage();
+            await Navigation.PushAsync(mainPage);
         }
         else
         {
