@@ -75,6 +75,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="LoginPages\ForgotPassPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Pages_AdminPanel\AdminPanel.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

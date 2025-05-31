@@ -42,6 +42,15 @@
                 <Label Text="Show password"
                    VerticalOptions="Center"
                    Margin="10,0,0,0" />
+
+                <Label Text="Forgot password?"
+                   VerticalOptions="Center"
+                   TextColor="{AppThemeBinding Light='#007AFF', Dark='#0A84FF'}"
+                   Margin="50,0,0,0">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnForgotPassTapped" />
+                    </Label.GestureRecognizers>
+                </Label>
             </HorizontalStackLayout>
 
             <Button Text="Log in"

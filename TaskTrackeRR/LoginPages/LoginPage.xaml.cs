@@ -1,6 +1,7 @@
 using Microsoft.Extensions.Logging.Abstractions;
 using System.Text.RegularExpressions;
 using Microsoft.Maui.Controls;
+using TaskTrackeRR;
 
 namespace TaskTrackeRR;
 
@@ -65,6 +66,12 @@ public partial class LoginPage : ContentPage
     {
         await Navigation.PushAsync(new RegisterPage());
     }
+
+    private async void OnForgotPassTapped(object sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new ForgotPassPage());
+    }
+
     private async void ShowPassCheckedChanged(object sender, CheckedChangedEventArgs e)
     {
         passwordEntry.IsPassword = !e.Value;

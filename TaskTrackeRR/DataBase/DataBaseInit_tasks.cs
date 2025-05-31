@@ -14,7 +14,7 @@ namespace TaskTrackeRR
     {
         private static readonly MySqlConnectionStringBuilder builder = new MySqlConnectionStringBuilder
         {
-            Server = "192.168.217.240",
+            Server = "192.168.245.126",
             UserID = "root",
             Password = "root",
             Database = "troll",
